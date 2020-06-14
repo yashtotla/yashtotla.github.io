@@ -10,14 +10,17 @@
 }
 
 .aside .nav li a:hover,
-.aside .nav li a.active {
+.aside .nav li a.active,
+.about .about-content .about-text .first-line span {
     color: #ec1839;
 }
 
 .aside .nav-toggler span,
 .aside .nav-toggler span::before,
 .aside .nav-toggler span::after,
-.home .intro .social-links a {
+.home .intro .social-links a,
+.section-title h2::before,
+.section-title h2::after {
     background-color: #ec1839;
 }
 
