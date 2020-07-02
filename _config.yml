@@ -1,0 +1,60 @@
+# Site
+repository: yashtotla/yashtotla.github.io
+favicon: images/favicon.ico
+
+# Personal info
+name: Yash Totla
+title: Incoming MTS at Oracle CX Cloud | Aspiring Data Scientist
+email: yashtotla98@gmail.com
+website: yashtotla.github.io
+
+# Social links
+twitter_username: holytotla
+github_username:  yashtotla
+# dribbble_username: jekyll
+# facebook_username: jekyll
+# flickr_username: jekyll
+# instagram_username: chillwildlife
+linkedin_username: yash-totla-933343140
+# pinterest_username: jekyll
+# youtube_username: globalmtb
+# googleplus_username: +jekyll
+
+# About Section
+# about_title: About Me
+about_profile_image: images/profile.jpg
+about_content: | # this will include new lines to allow paragraphs
+  Hi, my name is Yash Totla. I am an incoming MTS at Oracle Content and Experience Cloud. I am an Electrical and Electronics graduate from BITS Goa with a profound interest in Software Engineering, Machine Learning, Deep Learning, and Data Science. I have worked with a range of different technologies, languages, and frameworks and always looking for opportunities to learn and grow.
+  
+  Technologies: <mark>C++</mark> <mark>Python</mark> <mark>Tensorflow</mark> <mark>SQL</mark> <mark>Google Cloud Platform</mark> <mark>Neo4j</mark> <mark>Memgraph</mark> <mark>Cypher Query Language</mark> <mark>Git</mark> <mark>Matlab</mark> <mark>Linux</mark>
+
+# Projects Section
+# projects_title: Projects
+
+# Experience Section
+# experience_title: Experience
+
+# Education Section
+# educaton_title: Education
+
+# More Section
+more_title: When I am not programming
+more_content: | # this will include new lines to allow paragraphs
+  I enjoy playing turn based and strategy games. I am an avid reader and enjoy historical fiction and non-fiction.
+
+  I am currently reading <mark>Hyperbole and a Half</mark>. My go-to games lately are <mark>Polybridge 2</mark> and <mark>Turmoil</mark>
+
+# Footer
+footer_show_references: false
+
+# Build settings
+remote_theme: sproogen/resume-theme
+
+sass:
+  sass_dir: _sass
+  style: compressed
+
+plugins:
+ - jekyll-seo-tag
+
+darkmode: false 

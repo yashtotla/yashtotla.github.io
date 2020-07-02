@@ -1,0 +1,30 @@
+- layout: left
+  company: Vuclip
+  link: vuclip.com
+  job_title: Intern | Advanced Analytics Group
+  dates: Januare 2020 - June 2020
+  quote: >
+    Vuclip is a leading global technology-driven media company delivering on-demand entertainment to emerging markets including India, Southeast Asia, Africa and the Middle East.
+  description: | # this will include new lines to allow paragraphs
+    The millions of users on the Viu platform generate terabytes of data that needs to be analyzed iteratively and in a time sensitive manner. The Advanced Analytics Group constantly builds upon latest analytics techniques to uncover the ‘value’ in the data through design of highly scalable algorithms and systems.
+
+    During my internship I worked on multiple projects covering several aspects of Data Science
+    <p>1. Knowledge graphs for user journey modelling and analysis using graph databases.<br />
+    2. Video intelligence using AutoML and sentiment analysis based on the valence-arousal model.<br />
+    3. Data mining for metadata enrichment.<br />
+    4. Predictive modelling for subscription propensity using sequence embeddings and machine learning techniques.<br />
+    5. Web app for visualizing taste communities and connected content titles.</p>
+
+- layout: left
+  company: Mathworks
+  link: mathworks.com
+  job_title: Intern | MATLAB Coder
+  dates: May 2019 - July 2019
+  quote: >
+    MathWorks is the leading developer of mathematical computing software for engineers and scientists.
+  description: | # this will include new lines to allow paragraphs
+    MATLAB Coder generates C and C++ code from MATLAB code for a variety of hardware platforms, from desktop systems to embedded hardware. The generated code can be integrated as source code, static libraries, dynamic libraries or packaged as a MEX-function for use in MATLAB.
+
+    During my internship I worked on multiple projects covering several aspects of C++ Design Patterns, Modern Compiler Design, Compiler Optimizations and Large Scale Software Development.
+    <p>1. MATLAB Coder report expressions that were constand folded through MATLAB Coder workflow.<br />
+    2. Generate Polymorphic MEX function that supports multiple signaures.</p>

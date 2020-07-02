@@ -1,0 +1,14 @@
+- layout: left
+  name: BITS Pilani
+  dates: 2016 - 2020
+  qualification: BE (Hons) Electrical and Electronics <br /> 8.56/10
+  quote: >
+    BITS Pilani is known for its flexible and modular academic curriculum with strong emphasis on Unversity-Industry linkages. It is widely regarded in terms of its influence, reputation, and academic pedigree as a leading university in India.
+  description: | # this will include new lines to allow paragraphs
+    Projects: Visual Question Answering, Unsupervised Monocular Depth Estimation, Image Processing using Wavelets <br />
+    TAship: Microprocessor Programming and Interfacing, Analog and Digital VLSI Design <br />
+    Clubs: Chess Club, Quiz Club, Wallstreet Club <br />
+    POR: Treasurer, IEEE BITS Goa Students' Chapter
+
+
+
