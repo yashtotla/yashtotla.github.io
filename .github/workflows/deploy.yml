@@ -23,7 +23,9 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - run: npm ci
+      # npm install (not `npm ci`): a macOS-generated lockfile omits some
+      # Linux-only optional native deps, which makes strict `npm ci` fail here.
+      - run: npm install --no-audit --no-fund
       - run: npm run build
       - run: cp dist/index.html dist/404.html # SPA deep-link fallback
       - uses: actions/configure-pages@v5
