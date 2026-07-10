@@ -1,5 +1,3 @@
-import { Mail } from 'lucide-react'
-
 // lucide 1.x dropped brand marks, so social logos are inlined.
 type IconProps = { className?: string }
 
@@ -27,6 +25,24 @@ function XIcon({ className }: IconProps) {
   )
 }
 
+function MailIcon({ className }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className={className}
+    >
+      <rect x="2" y="4" width="20" height="16" rx="2" />
+      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+    </svg>
+  )
+}
+
 const links = [
   { href: 'https://github.com/yashtotla', label: 'GitHub', icon: GithubIcon },
   {
@@ -36,28 +52,26 @@ const links = [
   },
   { href: 'https://x.com/yashtotla_', label: 'X', icon: XIcon },
   // TODO(content): confirm the public contact email.
-  { href: 'mailto:yashtotla98@gmail.com', label: 'Email', icon: Mail },
+  { href: 'mailto:yashtotla98@gmail.com', label: 'Email', icon: MailIcon },
 ]
 
 export function Footer() {
   return (
     <footer className="border-t">
-      <div className="mx-auto flex max-w-3xl flex-col items-center gap-3 px-4 py-8 text-sm text-muted-foreground sm:flex-row sm:justify-between">
-        <span>&copy; {new Date().getFullYear()} Yash Totla</span>
-        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
-          {links.map(({ href, label, icon: Icon }) => (
-            <a
-              key={label}
-              href={href}
-              target={href.startsWith('http') ? '_blank' : undefined}
-              rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-              className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"
-            >
-              <Icon className="size-4" />
-              {label}
-            </a>
-          ))}
-        </div>
+      <div className="mx-auto flex max-w-3xl items-center justify-center gap-5 px-4 py-8 text-muted-foreground">
+        {links.map(({ href, label, icon: Icon }) => (
+          <a
+            key={label}
+            href={href}
+            target={href.startsWith('http') ? '_blank' : undefined}
+            rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+            aria-label={label}
+            title={label}
+            className="transition-colors hover:text-foreground"
+          >
+            <Icon className="size-5" />
+          </a>
+        ))}
       </div>
     </footer>
   )
