@@ -53,6 +53,15 @@ export const experience: Array<TimelineEntry> = [
     ],
   },
   {
+    period: '2022 — 2024',
+    role: 'Technical Consultant & Advisor',
+    org: 'Independent · Fintech',
+    kind: 'work',
+    context:
+      'Alongside full-time roles at Livspace and TruFin Labs. Advised fintech startups — Sublime Finance, Leap Wallet, Kriya Finance, and Stratzy AI — on architecture and delivery, reaching 300k+ users and $20M+ in annual revenue.',
+    tags: ['Advisory', 'Architecture', 'Fintech'],
+  },
+  {
     period: 'Mar — Aug 2022',
     role: 'Software Development Engineer',
     org: 'Livspace',
@@ -94,6 +103,10 @@ export const experience: Array<TimelineEntry> = [
     concurrent: {
       label: 'Alongside the degree',
       items: [
+        {
+          title: 'Internships',
+          detail: 'MathWorks, Vuclip, iCreate, Quixote, Coderlens',
+        },
         {
           title: 'Teaching Assistant',
           detail: 'Microprocessor Programming & Interfacing',

@@ -1,10 +1,14 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 import { Timeline } from '@/components/Timeline'
+import { Projects } from '@/components/Projects'
 
 export const Route = createFileRoute('/')({
   component: HomePage,
 })
+
+const sectionLabel =
+  'text-sm font-medium tracking-wide text-muted-foreground uppercase'
 
 function HomePage() {
   return (
@@ -21,8 +25,18 @@ function HomePage() {
         </p>
       </section>
 
-      <section className="pb-24">
-        <Timeline />
+      <section>
+        <h2 className={sectionLabel}>Experience</h2>
+        <div className="mt-8">
+          <Timeline />
+        </div>
+      </section>
+
+      <section className="mt-16 border-t pt-16 pb-24">
+        <h2 className={sectionLabel}>Projects</h2>
+        <div className="mt-6">
+          <Projects />
+        </div>
       </section>
     </div>
   )
