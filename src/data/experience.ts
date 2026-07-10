@@ -12,9 +12,7 @@ export interface TimelineEntry {
   context?: string
   points?: Array<string>
   tags?: Array<string>
-  /** Activities that ran concurrently within this entry's period (the overlap). */
   concurrent?: { label?: string; items: Array<ConcurrentItem> }
-  /** Renders a hollow node — for a future/incoming entry. */
   upcoming?: boolean
 }
 

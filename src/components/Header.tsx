@@ -23,7 +23,6 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur">
       <div className="grid h-14 grid-cols-[1fr_auto_1fr] items-center gap-4 px-4 sm:px-6">
-        {/* Left: logo mark */}
         <div className="flex items-center">
           <Link
             to="/"
@@ -34,7 +33,6 @@ export function Header() {
           </Link>
         </div>
 
-        {/* Center: menu (desktop) */}
         <nav className="hidden items-center gap-1 sm:flex">
           {navItems.map((item) => (
             <Link
@@ -49,7 +47,6 @@ export function Header() {
           ))}
         </nav>
 
-        {/* Right: theme toggle (+ mobile menu) */}
         <div className="flex items-center justify-end gap-2">
           <ThemeToggle />
           <div className="sm:hidden">

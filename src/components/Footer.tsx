@@ -1,4 +1,3 @@
-// lucide 1.x dropped brand marks, so social logos are inlined.
 type IconProps = { className?: string }
 
 function GithubIcon({ className }: IconProps) {
@@ -51,7 +50,6 @@ const links = [
     icon: LinkedinIcon,
   },
   { href: 'https://x.com/yashtotla_', label: 'X', icon: XIcon },
-  // TODO(content): confirm the public contact email.
   { href: 'mailto:yashtotla98@gmail.com', label: 'Email', icon: MailIcon },
 ]
 
