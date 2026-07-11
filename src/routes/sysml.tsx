@@ -46,35 +46,37 @@ function SysmlCorner() {
         </p>
       </section>
 
-      <div className="space-y-12 pb-24">
+      <div className="space-y-10 pb-24">
         {resourceGroups.map((group) => (
           <section key={group.topic}>
             <h2 className={sectionLabel}>{group.topic}</h2>
-            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+            <div className="mt-4 grid gap-x-8 gap-y-4 sm:grid-cols-2">
               {group.items.map((resource) => {
                 const Icon = kindIcon[resource.kind] ?? LinkIcon
                 return (
-                  <a
-                    key={resource.href}
-                    href={resource.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex gap-3 rounded-lg border p-4 transition-colors hover:bg-muted/40"
-                  >
-                    <Icon className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
+                  <div key={resource.href} className="flex gap-2.5">
+                    <Icon className="mt-1 size-3.5 shrink-0 text-muted-foreground" />
                     <div className="min-w-0">
-                      <div className="flex items-center gap-1">
-                        <span className="font-medium">{resource.title}</span>
-                        <ArrowUpRight className="size-3.5 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
-                      </div>
-                      <p className="text-xs text-muted-foreground">
-                        {resource.source}
+                      <p className="text-sm leading-snug">
+                        <a
+                          href={resource.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group font-medium underline-offset-4 hover:underline"
+                        >
+                          {resource.title}
+                          <ArrowUpRight className="ml-0.5 inline size-3 -translate-y-px text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+                        </a>
+                        <span className="text-muted-foreground">
+                          {' · '}
+                          {resource.source}
+                        </span>
                       </p>
-                      <p className="mt-1.5 text-sm text-muted-foreground">
+                      <p className="text-xs text-muted-foreground">
                         {resource.note}
                       </p>
                     </div>
-                  </a>
+                  </div>
                 )
               })}
             </div>
