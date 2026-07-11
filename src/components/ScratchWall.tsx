@@ -70,14 +70,14 @@ function Card({ item }: { item: ScratchItem }) {
   }
 }
 
-export function ScratchWall() {
+export function ScratchItems() {
   return (
-    <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
+    <>
       {scratchItems.map((item, index) => (
-        <div key={`${item.type}-${index}`} className="mb-4 break-inside-avoid">
+        <div key={`${item.type}-${index}`} className="w-56 max-w-full">
           <Card item={item} />
         </div>
       ))}
-    </div>
+    </>
   )
 }

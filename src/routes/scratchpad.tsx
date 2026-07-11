@@ -1,7 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { ScratchWall } from '@/components/ScratchWall'
+import { ScratchItems } from '@/components/ScratchWall'
 import { Travel } from '@/components/Travel'
+import { MusicItems } from '@/components/Music'
 
 export const Route = createFileRoute('/scratchpad')({
   component: Scratchpad,
@@ -20,12 +21,13 @@ function Scratchpad() {
         </p>
       </section>
 
-      <section className="pb-12">
+      <section className="pb-8">
         <Travel />
       </section>
 
-      <div className="pb-24">
-        <ScratchWall />
+      <div className="flex flex-wrap items-start gap-4 pb-24">
+        <MusicItems />
+        <ScratchItems />
       </div>
     </div>
   )
