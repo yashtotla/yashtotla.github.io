@@ -13,7 +13,11 @@ export interface TimelineEntry {
   points?: Array<string>
   tags?: Array<string>
   concurrent?: { label?: string; items: Array<ConcurrentItem> }
-  links?: Array<{ label: string; href: string }>
+  links?: Array<{
+    label: string
+    href: string
+    advisor?: { name: string; href: string }
+  }>
   upcoming?: boolean
 }
 
@@ -122,12 +126,20 @@ export const experience: Array<TimelineEntry> = [
     },
     links: [
       {
-        label: 'Wavelets in Image Processing (report)',
+        label: 'Wavelets in image processing',
         href: 'https://drive.google.com/file/d/1LkFeZoPy7LQTo6PEZ4eRi6RZdsgl18k_/view',
+        advisor: {
+          name: 'Prof. Amit Setia',
+          href: 'https://scholar.google.com/citations?user=Wt02vywAAAAJ&hl=en',
+        },
       },
       {
-        label: 'Vuclip internship report',
+        label: 'Advanced analytics at Vuclip',
         href: 'https://docs.google.com/document/d/1vKLqk1ZA3eUNnTlnkQuLV5dw3ALOGWE6/preview',
+        advisor: {
+          name: 'Dr. Chetana Gavankar',
+          href: 'https://scholar.google.com/citations?user=4YxlyNMAAAAJ&hl=en',
+        },
       },
     ],
   },

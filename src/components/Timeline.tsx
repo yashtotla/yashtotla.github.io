@@ -90,6 +90,19 @@ function Entry({ entry }: { entry: TimelineEntry }) {
                   {link.label}
                   <ArrowUpRight className="size-3.5 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
                 </a>
+                {link.advisor ? (
+                  <span className="text-muted-foreground">
+                    {' · advised by '}
+                    <a
+                      href={link.advisor.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline-offset-4 hover:underline"
+                    >
+                      {link.advisor.name}
+                    </a>
+                  </span>
+                ) : null}
               </li>
             ))}
           </ul>
