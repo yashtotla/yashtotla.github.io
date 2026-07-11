@@ -16,7 +16,7 @@ Live at **[yashtotla.github.io](https://yashtotla.github.io)**.
 ## Pages
 
 - `/` — experience timeline and selected projects
-- `/sysml` — SysML Corner: a curated collection on systems for ML
+- `/sysml` — SysML: a curated collection on systems for ML
 - `/scratchpad` — a freeflowing wall (travel map, music, and links)
 
 ## Develop

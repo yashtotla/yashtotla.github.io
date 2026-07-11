@@ -4,7 +4,7 @@ import { ThemeToggle } from '@/components/theme-toggle'
 
 const navItems = [
   { to: '/', label: 'Home' },
-  { to: '/sysml', label: 'SysML Corner' },
+  { to: '/sysml', label: 'SysML' },
   { to: '/scratchpad', label: 'Scratchpad' },
 ] as const
 
