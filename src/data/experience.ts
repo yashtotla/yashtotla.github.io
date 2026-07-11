@@ -1,6 +1,7 @@
 export interface ConcurrentItem {
   title: string
   detail?: string
+  href?: string
 }
 
 export interface TimelineEntry {
@@ -40,20 +41,20 @@ export const experience: Array<TimelineEntry> = [
     location: 'London, UK',
     kind: 'work',
     context:
-      'Investment products for digital assets, backing $100M+ from institutions like Nomura and Brevan Howard.',
+      'Investment products for digital assets, backed by institutions like Nomura and Brevan Howard.',
     points: [
-      'Built a unified multi-chain backend API abstracting five heterogeneous blockchains behind concurrency-optimized routing and chain-agnostic domain models.',
-      'Designed multithreaded indexer services for Solana, Aptos, Near, and Injective — 500 TB+/yr over gRPC streams with a producer–consumer architecture.',
-      'Built high-throughput ingestion pipelines into PostgreSQL with backpressure, per-transaction atomicity, and schema-level reindexing.',
-      'Led three engineers on a time-weighted loyalty Points Program with exactly-once, reindexable ETL.',
+      'Built indexer services across Solana, Near, Aptos, Injective, and Ethereum — ~3 TB/day (500 TB+/yr) over gRPC streams with a multithreaded producer–consumer architecture.',
+      'Built high-throughput, write-heavy ingestion pipelines into PostgreSQL with per-transaction atomicity, backpressure, and schema-level reindexing.',
+      'Designed a unified multi-chain backend API that abstracts five heterogeneous chains behind concurrency-optimized routing and chain-agnostic domain models.',
+      'Wrote tf_utils, an internal Python library (RPC, financial math, logging, database), and ran deploy infra on EC2 and load balancers with CI/CD and observability.',
     ],
     tags: [
       'Rust',
       'Python',
+      'TypeScript',
       'gRPC',
       'PostgreSQL',
-      'Kubernetes',
-      'Concurrency',
+      'AWS',
       'Distributed systems',
     ],
   },
@@ -63,7 +64,7 @@ export const experience: Array<TimelineEntry> = [
     org: 'Independent · Fintech',
     kind: 'work',
     context:
-      'Alongside full-time roles at Livspace and TruFin Labs. Advised fintech startups — Sublime Finance, Leap Wallet, Kriya Finance, and Stratzy AI — on architecture and delivery, reaching 300k+ users and $20M+ in annual revenue.',
+      'Alongside full-time roles at Livspace and TruFin Labs. Advised fintech startups — Sublime Finance, Leap Wallet, Kriya Finance, and Stratzy AI — on architecture and delivery; at peak, the products reached 300k+ monthly active users.',
     tags: ['Advisory', 'Architecture', 'Fintech'],
   },
   {
@@ -103,25 +104,38 @@ export const experience: Array<TimelineEntry> = [
     context: 'First Division · CGPA 8.56 / 10.',
     points: [
       'Relevant coursework: Machine Learning, Neural Networks, Probability & Statistics, Optimization, Non-linear Optimization, Digital Image Processing, Operating Systems.',
+      'Teaching Assistant — Microprocessor Programming & Interfacing; Analog & Digital VLSI Design.',
+      'Vice Chair, IEEE Student Chapter · Finance Head, Quark (the annual tech fest).',
       'Scholarships: Merit-cum-Need (University) and INSPIRE (Government of India).',
     ],
     concurrent: {
-      label: 'Alongside the degree',
+      label: 'Internships',
       items: [
         {
-          title: 'Internships',
-          detail: 'MathWorks, Vuclip, iCreate, Quixote, Coderlens',
+          title: 'MathWorks',
+          detail:
+            'MATLAB Coder compiler internals — constant-folded report expressions and polymorphic MEX generation (C++).',
         },
         {
-          title: 'Teaching Assistant',
-          detail: 'Microprocessor Programming & Interfacing',
+          title: 'Vuclip',
+          detail:
+            'Data science — knowledge-graph user-journey modeling, subscription-propensity models with sequence embeddings, and AutoML video sentiment.',
         },
         {
-          title: 'Teaching Assistant',
-          detail: 'Analog & Digital VLSI Design',
+          title: 'Quixote',
+          detail:
+            'Embedded C + ML — dead reckoning from noisy IMU data with an Extended Kalman Filter.',
         },
-        { title: 'Vice Chair', detail: 'IEEE Student Chapter' },
-        { title: 'Finance Head', detail: 'Quark, the annual tech fest' },
+        {
+          title: 'iCreate',
+          detail:
+            'Industrial IoT — process analysis and optimization for metal die-casting and food processing.',
+        },
+        {
+          title: 'Coderlens',
+          detail: 'Built Python, NumPy, Pandas, and data-science question banks.',
+          href: 'https://github.com/yashtotla/coderlens',
+        },
       ],
     },
     links: [

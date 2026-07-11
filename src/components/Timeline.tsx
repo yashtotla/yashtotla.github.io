@@ -63,7 +63,19 @@ function Entry({ entry }: { entry: TimelineEntry }) {
           <ul className="mt-2 space-y-1 text-sm">
             {entry.concurrent.items.map((item) => (
               <li key={item.title + (item.detail ?? '')}>
-                <span className="text-foreground/80">{item.title}</span>
+                {item.href ? (
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-1 text-foreground/80 underline-offset-4 hover:underline"
+                  >
+                    {item.title}
+                    <ArrowUpRight className="size-3 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+                  </a>
+                ) : (
+                  <span className="text-foreground/80">{item.title}</span>
+                )}
                 {item.detail ? (
                   <span className="text-muted-foreground"> — {item.detail}</span>
                 ) : null}
