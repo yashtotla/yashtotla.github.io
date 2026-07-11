@@ -1,13 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import { Menu } from 'lucide-react'
 
-import { Button } from '@/components/ui/button'
-import {
-  Sheet,
-  SheetContent,
-  SheetTitle,
-  SheetTrigger,
-} from '@/components/ui/sheet'
 import { ThemeToggle } from '@/components/theme-toggle'
 
 const navItems = [
@@ -17,23 +9,20 @@ const navItems = [
 ] as const
 
 const linkClass =
-  'rounded-md px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground'
+  'rounded-md px-2 py-1.5 text-sm whitespace-nowrap text-muted-foreground transition-colors hover:text-foreground'
 
 export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur">
-      <div className="grid h-14 grid-cols-[1fr_auto_1fr] items-center gap-4 px-4 sm:px-6">
-        <div className="flex items-center">
-          <Link
-            to="/"
-            aria-label="Home"
-            className="font-heading text-lg font-semibold tracking-tight"
-          >
-            YT
-          </Link>
-        </div>
-
-        <nav className="hidden items-center gap-1 sm:flex">
+      <div className="mx-auto flex h-14 max-w-3xl items-center gap-2 px-4">
+        <Link
+          to="/"
+          aria-label="Home"
+          className="font-heading shrink-0 text-lg font-semibold tracking-tight"
+        >
+          YT
+        </Link>
+        <nav className="flex flex-1 items-center justify-center gap-0.5 sm:gap-1">
           {navItems.map((item) => (
             <Link
               key={item.to}
@@ -46,34 +35,8 @@ export function Header() {
             </Link>
           ))}
         </nav>
-
-        <div className="flex items-center justify-end gap-2">
+        <div className="shrink-0">
           <ThemeToggle />
-          <div className="sm:hidden">
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" aria-label="Open menu">
-                  <Menu />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-64">
-                <SheetTitle className="px-4 pt-4">Menu</SheetTitle>
-                <nav className="flex flex-col gap-1 px-2">
-                  {navItems.map((item) => (
-                    <Link
-                      key={item.to}
-                      to={item.to}
-                      activeOptions={{ exact: item.to === '/' }}
-                      className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-                      activeProps={{ className: 'text-foreground' }}
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </nav>
-              </SheetContent>
-            </Sheet>
-          </div>
         </div>
       </div>
     </header>
