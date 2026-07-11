@@ -37,6 +37,20 @@ export const resourceGroups: Array<ResourceGroup> = [
         note: 'Builds a minimal inference engine end to end — a readable path into serving internals.',
       },
       {
+        title: 'Inference Engineering',
+        href: 'https://www.baseten.co/inference-engineering/',
+        source: 'Philip Kiely · Baseten',
+        kind: 'guide',
+        note: 'Practical guide to serving LLMs efficiently in production.',
+      },
+      {
+        title: 'The Physics of LLM Inference',
+        href: 'https://elliotarledge.gumroad.com/l/physics-llm-inference',
+        source: 'Elliot Arledge',
+        kind: 'book',
+        note: 'The math and mechanics behind LLM inference performance.',
+      },
+      {
         title: 'ML Systems',
         href: 'https://mlsysbook.ai/',
         source: 'mlsysbook.ai',

@@ -26,6 +26,7 @@ const kindIcon: Record<string, LucideIcon> = {
   blog: PenLine,
   article: FileText,
   book: BookOpen,
+  guide: BookOpen,
   channel: Video,
   interactive: MousePointerClick,
   collection: Library,

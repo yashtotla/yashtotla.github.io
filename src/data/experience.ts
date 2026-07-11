@@ -13,6 +13,7 @@ export interface TimelineEntry {
   points?: Array<string>
   tags?: Array<string>
   concurrent?: { label?: string; items: Array<ConcurrentItem> }
+  links?: Array<{ label: string; href: string }>
   upcoming?: boolean
 }
 
@@ -119,5 +120,15 @@ export const experience: Array<TimelineEntry> = [
         { title: 'Finance Head', detail: 'Quark, the annual tech fest' },
       ],
     },
+    links: [
+      {
+        label: 'Wavelets in Image Processing (report)',
+        href: 'https://drive.google.com/file/d/1LkFeZoPy7LQTo6PEZ4eRi6RZdsgl18k_/view',
+      },
+      {
+        label: 'Vuclip internship report',
+        href: 'https://docs.google.com/document/d/1vKLqk1ZA3eUNnTlnkQuLV5dw3ALOGWE6/preview',
+      },
+    ],
   },
 ]

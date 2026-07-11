@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { ArrowUpRight } from 'lucide-react'
 
 import { experience, type TimelineEntry } from '@/data/experience'
 import { cn } from '@/lib/utils'
@@ -66,6 +67,29 @@ function Entry({ entry }: { entry: TimelineEntry }) {
                 {item.detail ? (
                   <span className="text-muted-foreground"> — {item.detail}</span>
                 ) : null}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+
+      {entry.links ? (
+        <div className="mt-4">
+          <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+            Selected work
+          </p>
+          <ul className="mt-2 space-y-1 text-sm">
+            {entry.links.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-1 text-foreground/80 underline-offset-4 hover:underline"
+                >
+                  {link.label}
+                  <ArrowUpRight className="size-3.5 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+                </a>
               </li>
             ))}
           </ul>

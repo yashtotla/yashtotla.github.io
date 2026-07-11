@@ -16,7 +16,8 @@ export const projects: Array<Project> = [
   {
     name: 'gpt-2',
     href: 'https://github.com/yashtotla/gpt-2',
-    blurb: 'A from-scratch GPT-2 implementation in Python.',
-    tags: ['Python', 'Transformers'],
+    blurb:
+      'GPT-2 built from scratch in PyTorch — the full transformer at GPT-2-small config (124M), tiktoken BPE, and a training loop over a text corpus.',
+    tags: ['PyTorch', 'Transformers', 'tiktoken'],
   },
 ]
