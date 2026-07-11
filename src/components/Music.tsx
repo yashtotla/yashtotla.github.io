@@ -34,7 +34,7 @@ export function MusicItems() {
           href={href(playlist.provider, playlist.id)}
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex w-56 max-w-full items-center gap-2.5 rounded-xl border p-3 transition-colors hover:bg-muted/40"
+          className="group mb-4 flex break-inside-avoid items-center gap-2.5 rounded-xl border p-3 transition-colors hover:bg-muted/40"
         >
           {playlist.provider === 'spotify' ? (
             <SpotifyIcon className="size-7 shrink-0" />

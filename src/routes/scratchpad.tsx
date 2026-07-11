@@ -25,7 +25,7 @@ function Scratchpad() {
         <Travel />
       </section>
 
-      <div className="flex flex-wrap items-start gap-4 pb-24">
+      <div className="columns-1 gap-4 pb-24 sm:columns-2 lg:columns-3">
         <MusicItems />
         <ScratchItems />
       </div>

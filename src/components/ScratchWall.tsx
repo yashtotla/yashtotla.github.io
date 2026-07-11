@@ -74,7 +74,7 @@ export function ScratchItems() {
   return (
     <>
       {scratchItems.map((item, index) => (
-        <div key={`${item.type}-${index}`} className="w-56 max-w-full">
+        <div key={`${item.type}-${index}`} className="mb-4 break-inside-avoid">
           <Card item={item} />
         </div>
       ))}

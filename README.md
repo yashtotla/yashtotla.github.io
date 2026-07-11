@@ -1,32 +1,31 @@
-# React + TypeScript + Vite
+# yashtotla.github.io
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Personal site of Yash Totla — backend and distributed-systems engineer, incoming
+MSCS at Georgia Tech, focused on systems for AI (LLM inference, model serving).
 
-Currently, two official plugins are available:
+Live at **[yashtotla.github.io](https://yashtotla.github.io)**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Stack
 
-## React Compiler
+- React 19 + TypeScript, built with Vite 8
+- TanStack Router (file-based routing) + TanStack Query
+- Tailwind CSS v4 + shadcn/ui (Radix primitives)
+- d3-geo / d3-zoom for the interactive travel map
+- Deployed to GitHub Pages via GitHub Actions
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Pages
 
-## Expanding the Oxlint configuration
+- `/` — experience timeline and selected projects
+- `/sysml` — SysML Corner: a curated collection on systems for ML
+- `/scratchpad` — a freeflowing wall (travel map, music, and links)
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## Develop
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev     # dev server on http://localhost:3000
+npm run build   # production build + type-check
+npm run lint
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Pushing to `main` builds and deploys automatically via `.github/workflows/deploy.yml`.
