@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Timeline } from '@/components/Timeline'
 import { Projects } from '@/components/Projects'
+import { SocialLinks } from '@/components/SocialLinks'
 
 export const Route = createFileRoute('/')({
   component: HomePage,
@@ -23,6 +24,7 @@ function HomePage() {
           in fintech, and I am heading to Georgia Tech for an MSCS focused on
           systems for AI &mdash; LLM inference and model serving.
         </p>
+        <SocialLinks className="mt-6" />
       </section>
 
       <section>
