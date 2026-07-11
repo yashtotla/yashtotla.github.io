@@ -9,7 +9,7 @@ import {
   zoom,
   zoomIdentity,
 } from 'd3-zoom'
-import { Home, Minus, Plus, RotateCcw, X } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Home, Minus, Plus, RotateCcw, X } from 'lucide-react'
 import worldData from 'world-atlas/countries-110m.json'
 
 import { destinations, home, trips, type LonLat } from '@/data/travel'
@@ -28,6 +28,8 @@ const projection = geoEqualEarth().fitSize([WIDTH, HEIGHT], {
 } as any)
 
 const pathGen = geoPath(projection)
+
+const homeXY = projection(home.coordinates)
 
 const focusPoints = [home.coordinates, ...destinations.map((d) => d.coordinates)]
   .map((c) => projection(c))
@@ -48,18 +50,14 @@ const regionTransform = (() => {
   return zoomIdentity.translate(tx, ty).scale(k)
 })()
 
-const homeXY = projection(home.coordinates)
-
-const placed = destinations.map((destination) => {
-  const related = trips.filter((trip) => trip.city === destination.name)
-  const latest = related.reduce((a, b) => (a.date >= b.date ? a : b))
-  return {
-    name: destination.name,
-    count: related.length,
-    photo: latest.photo,
-    xy: projection(destination.coordinates),
-  }
-})
+const placed = destinations.map((destination) => ({
+  name: destination.name,
+  count: trips.filter((trip) => trip.city === destination.name).length,
+  photo: trips
+    .filter((trip) => trip.city === destination.name)
+    .reduce((a, b) => (a.date >= b.date ? a : b)).photo,
+  xy: projection(destination.coordinates),
+}))
 
 function arcPath(from: LonLat, to: LonLat) {
   const interpolate = geoInterpolate(from, to)
@@ -79,6 +77,7 @@ export function Travel() {
   const zoomRef = useRef<ZoomBehavior<SVGSVGElement, unknown> | null>(null)
   const [transform, setTransform] = useState<ZoomTransform>(regionTransform)
   const [selected, setSelected] = useState<string | null>(null)
+  const [photoIndex, setPhotoIndex] = useState(0)
 
   useEffect(() => {
     const node = svgRef.current
@@ -104,6 +103,19 @@ export function Travel() {
     }
   }, [])
 
+  useEffect(() => {
+    if (!selected) return
+    const count = trips.filter((trip) => trip.city === selected).length
+    function onKey(event: KeyboardEvent) {
+      if (event.key === 'Escape') setSelected(null)
+      else if (event.key === 'ArrowRight') setPhotoIndex((i) => (i + 1) % count)
+      else if (event.key === 'ArrowLeft')
+        setPhotoIndex((i) => (i - 1 + count) % count)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [selected])
+
   function scaleBy(factor: number) {
     const node = svgRef.current
     const behavior = zoomRef.current
@@ -121,157 +133,185 @@ export function Travel() {
     return { left: `${(x / WIDTH) * 100}%`, top: `${(y / HEIGHT) * 100}%` }
   }
 
-  const selectedTrips = selected
+  function openLocation(name: string) {
+    setSelected((current) => (current === name ? null : name))
+    setPhotoIndex(0)
+  }
+
+  const activeTrips = selected
     ? trips
         .filter((trip) => trip.city === selected)
         .sort((a, b) => b.date.localeCompare(a.date))
     : []
-  const selectedDetail = selectedTrips.find((trip) => trip.detail)?.detail
+  const activeTrip = activeTrips[photoIndex]
 
   return (
-    <div className="bg-card relative aspect-[2/1] w-full touch-none overflow-hidden rounded-xl border select-none">
-      <svg
-        ref={svgRef}
-        viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
-        className="absolute inset-0 h-full w-full cursor-grab active:cursor-grabbing"
-      >
-        <rect x={0} y={0} width={WIDTH} height={HEIGHT} fill="transparent" />
-        <g transform={transform.toString()}>
-          <g
-            className="fill-muted-foreground/15 stroke-background"
-            strokeWidth={0.5}
-            strokeLinejoin="round"
-            vectorEffect="non-scaling-stroke"
-          >
-            {world.features.map((geo, index) => (
-              <path
-                key={String(geo.id ?? index)}
-                d={pathGen(geo) ?? undefined}
-                vectorEffect="non-scaling-stroke"
-              />
-            ))}
-          </g>
-          <g className="stroke-foreground/40" fill="none" strokeWidth={1}>
-            {destinations.map((destination) => (
-              <path
-                key={destination.name}
-                d={arcPath(home.coordinates, destination.coordinates)}
-                vectorEffect="non-scaling-stroke"
-              />
-            ))}
-          </g>
-        </g>
-      </svg>
-
-      {homeXY ? (
-        <div
-          className="bg-foreground text-background pointer-events-none absolute flex size-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full shadow"
-          style={styleFor(homeXY)}
+    <div className="relative aspect-[2/1] w-full">
+      <div className="bg-card absolute inset-0 touch-none overflow-hidden rounded-xl border select-none">
+        <svg
+          ref={svgRef}
+          viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
+          className="absolute inset-0 h-full w-full cursor-grab active:cursor-grabbing"
         >
-          <Home className="size-4" />
-        </div>
-      ) : null}
-
-      {placed.map((location) => {
-        if (!location.xy) return null
-        const isActive = selected === location.name
-        return (
-          <button
-            key={location.name}
-            type="button"
-            onClick={() =>
-              setSelected((s) => (s === location.name ? null : location.name))
-            }
-            aria-label={`${location.name}, ${location.count} ${location.count > 1 ? 'trips' : 'trip'}`}
-            className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-transform hover:scale-105"
-            style={styleFor(location.xy)}
-          >
-            <div className="relative">
-              <div
-                className={cn(
-                  'bg-muted size-10 overflow-hidden rounded-full border-2 shadow-md',
-                  isActive ? 'border-foreground' : 'border-background',
-                )}
-              >
-                {location.photo ? (
-                  <img
-                    src={location.photo}
-                    alt={location.name}
-                    loading="lazy"
-                    className="h-full w-full object-cover"
-                  />
-                ) : (
-                  <div className="text-muted-foreground flex h-full w-full items-center justify-center text-[9px]">
-                    soon
-                  </div>
-                )}
-              </div>
-              {location.count > 1 ? (
-                <span className="bg-foreground text-background absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full text-[9px] font-medium">
-                  {location.count}
-                </span>
-              ) : null}
-            </div>
-          </button>
-        )
-      })}
-
-      <div className="absolute top-2 right-2 flex flex-col gap-1">
-        <button type="button" onClick={() => scaleBy(1.6)} aria-label="Zoom in" className={controlButton}>
-          <Plus className="size-4" />
-        </button>
-        <button type="button" onClick={() => scaleBy(1 / 1.6)} aria-label="Zoom out" className={controlButton}>
-          <Minus className="size-4" />
-        </button>
-        <button type="button" onClick={reset} aria-label="Reset view" className={controlButton}>
-          <RotateCcw className="size-4" />
-        </button>
-      </div>
-
-      {selected ? (
-        <div className="bg-background/90 absolute inset-x-3 bottom-3 rounded-lg border p-3 shadow-lg backdrop-blur">
-          <div className="flex items-center justify-between">
-            <p className="text-sm font-medium">
-              {selected}
-              <span className="text-muted-foreground">
-                {` · ${selectedTrips.length} ${selectedTrips.length > 1 ? 'trips' : 'trip'}`}
-              </span>
-            </p>
-            <button
-              type="button"
-              onClick={() => setSelected(null)}
-              aria-label="Close"
-              className="text-muted-foreground hover:text-foreground cursor-pointer"
+          <rect x={0} y={0} width={WIDTH} height={HEIGHT} fill="transparent" />
+          <g transform={transform.toString()}>
+            <g
+              className="fill-muted-foreground/15 stroke-background"
+              strokeWidth={0.5}
+              strokeLinejoin="round"
             >
-              <X className="size-4" />
-            </button>
+              {world.features.map((geo, index) => (
+                <path
+                  key={String(geo.id ?? index)}
+                  d={pathGen(geo) ?? undefined}
+                  vectorEffect="non-scaling-stroke"
+                />
+              ))}
+            </g>
+            <g className="stroke-foreground/40" fill="none" strokeWidth={1}>
+              {destinations.map((destination) => (
+                <path
+                  key={destination.name}
+                  d={arcPath(home.coordinates, destination.coordinates)}
+                  vectorEffect="non-scaling-stroke"
+                />
+              ))}
+            </g>
+          </g>
+        </svg>
+
+        {homeXY ? (
+          <div
+            className="bg-foreground text-background pointer-events-none absolute flex size-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full shadow"
+            style={styleFor(homeXY)}
+          >
+            <Home className="size-4" />
           </div>
-          <div className="mt-2 flex gap-2 overflow-x-auto">
-            {selectedTrips.map((trip) => (
-              <figure key={trip.date} className="w-20 shrink-0">
-                <div className="bg-muted aspect-square overflow-hidden rounded-md border">
-                  {trip.photo ? (
+        ) : null}
+
+        {placed.map((location) => {
+          if (!location.xy) return null
+          const isActive = selected === location.name
+          return (
+            <button
+              key={location.name}
+              type="button"
+              onClick={() => openLocation(location.name)}
+              aria-label={`${location.name}, ${location.count} ${location.count > 1 ? 'trips' : 'trip'}`}
+              className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-transform hover:scale-105"
+              style={styleFor(location.xy)}
+            >
+              <div className="relative">
+                <div
+                  className={cn(
+                    'bg-muted size-12 overflow-hidden rounded-full border-2 shadow-md',
+                    isActive ? 'border-foreground' : 'border-background',
+                  )}
+                >
+                  {location.photo ? (
                     <img
-                      src={trip.photo}
-                      alt={`${trip.city}, ${trip.date}`}
+                      src={location.photo}
+                      alt={location.name}
                       loading="lazy"
+                      decoding="async"
                       className="h-full w-full object-cover"
                     />
                   ) : (
-                    <div className="text-muted-foreground flex h-full items-center justify-center text-[10px]">
+                    <div className="text-muted-foreground flex h-full w-full items-center justify-center text-[9px]">
                       soon
                     </div>
                   )}
                 </div>
-                <figcaption className="text-muted-foreground mt-1 text-xs">
-                  {trip.date}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-          {selectedDetail ? (
-            <p className="text-muted-foreground mt-2 text-xs">{selectedDetail}</p>
+                {location.count > 1 ? (
+                  <span className="bg-foreground text-background absolute -top-1 -right-1 flex size-5 items-center justify-center rounded-full text-[10px] font-medium">
+                    {location.count}
+                  </span>
+                ) : null}
+              </div>
+            </button>
+          )
+        })}
+
+        <div className="absolute top-2 right-2 flex flex-col gap-1">
+          <button type="button" onClick={() => scaleBy(1.6)} aria-label="Zoom in" className={controlButton}>
+            <Plus className="size-4" />
+          </button>
+          <button type="button" onClick={() => scaleBy(1 / 1.6)} aria-label="Zoom out" className={controlButton}>
+            <Minus className="size-4" />
+          </button>
+          <button type="button" onClick={reset} aria-label="Reset view" className={controlButton}>
+            <RotateCcw className="size-4" />
+          </button>
+        </div>
+      </div>
+
+      {activeTrip ? (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-6"
+          onClick={() => setSelected(null)}
+        >
+          <button
+            type="button"
+            onClick={() => setSelected(null)}
+            aria-label="Close"
+            className="absolute top-4 right-4 text-white/70 transition-colors hover:text-white"
+          >
+            <X className="size-6" />
+          </button>
+
+          {activeTrips.length > 1 ? (
+            <>
+              <button
+                type="button"
+                aria-label="Previous"
+                onClick={(event) => {
+                  event.stopPropagation()
+                  setPhotoIndex(
+                    (i) => (i - 1 + activeTrips.length) % activeTrips.length,
+                  )
+                }}
+                className="absolute top-1/2 left-3 flex size-10 -translate-y-1/2 items-center justify-center rounded-full text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+              >
+                <ChevronLeft className="size-7" />
+              </button>
+              <button
+                type="button"
+                aria-label="Next"
+                onClick={(event) => {
+                  event.stopPropagation()
+                  setPhotoIndex((i) => (i + 1) % activeTrips.length)
+                }}
+                className="absolute top-1/2 right-3 flex size-10 -translate-y-1/2 items-center justify-center rounded-full text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+              >
+                <ChevronRight className="size-7" />
+              </button>
+            </>
           ) : null}
+
+          <figure
+            className="flex flex-col items-center"
+            onClick={(event) => event.stopPropagation()}
+          >
+            {activeTrip.photo ? (
+              <img
+                src={activeTrip.photo}
+                alt={`${activeTrip.city}, ${activeTrip.date}`}
+                className="max-h-[80vh] max-w-[88vw] rounded-lg object-contain shadow-2xl"
+              />
+            ) : null}
+            <figcaption className="mt-3 text-center text-sm text-white">
+              <span className="font-medium">{activeTrip.city}</span>
+              <span className="text-white/60"> · {activeTrip.date}</span>
+              {activeTrip.detail ? (
+                <span className="text-white/60"> — {activeTrip.detail}</span>
+              ) : null}
+              {activeTrips.length > 1 ? (
+                <span className="text-white/40">
+                  {` · ${photoIndex + 1}/${activeTrips.length}`}
+                </span>
+              ) : null}
+            </figcaption>
+          </figure>
         </div>
       ) : null}
     </div>

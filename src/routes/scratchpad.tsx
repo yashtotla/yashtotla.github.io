@@ -7,9 +7,6 @@ export const Route = createFileRoute('/scratchpad')({
   component: Scratchpad,
 })
 
-const sectionLabel =
-  'text-sm font-medium tracking-wide text-muted-foreground uppercase'
-
 function Scratchpad() {
   return (
     <div className="mx-auto max-w-3xl px-4">
@@ -24,10 +21,7 @@ function Scratchpad() {
       </section>
 
       <section className="pb-12">
-        <h2 className={sectionLabel}>Where I&rsquo;ve been</h2>
-        <div className="mt-6">
-          <Travel />
-        </div>
+        <Travel />
       </section>
 
       <div className="pb-24">
