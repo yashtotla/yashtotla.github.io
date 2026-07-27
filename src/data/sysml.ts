@@ -27,7 +27,7 @@ export const resourceGroups: Array<ResourceGroup> = [
         href: 'https://leerob.com/',
         source: 'leerob.com',
         kind: 'blog',
-        note: 'On building for the web, developer experience, and shipping.',
+        note: 'Coding agents, building software with AI, and making hard tech easy to understand.',
       },
       {
         title: 'nano-vLLM: a tiny inference engine',
@@ -101,6 +101,13 @@ export const resourceGroups: Array<ResourceGroup> = [
         source: 'zhaochenyang20',
         kind: 'collection',
         note: 'A living collection of ML-systems and serving deep-dives.',
+      },
+      {
+        title: 'mlsys-reading-list',
+        href: 'https://github.com/Anirudhaagrawal/mlsys-reading-list',
+        source: 'Anirudhaagrawal',
+        kind: 'collection',
+        note: 'A curated reading list for ramping up on ML systems.',
       },
       {
         title: 'GPU MODE',
