@@ -3,9 +3,27 @@ export interface Project {
   href: string
   blurb: string
   tags: Array<string>
+  links?: Array<{ label: string; href: string }>
 }
 
 export const projects: Array<Project> = [
+  {
+    name: 'dbagent',
+    href: 'https://github.com/yashtotla/dbagent',
+    blurb:
+      'An agent solving DBBench modification tasks in MySQL, with and without the ability to checkpoint and roll back its own writes; implementing the agentic-exploration setting from Xu et al.',
+    tags: ['MySQL', 'Savepoints', 'Agentic exploration'],
+    links: [
+      {
+        label: 'Toward Systems Foundations for Agentic Exploration',
+        href: 'https://arxiv.org/abs/2510.05556',
+      },
+      {
+        label: 'DBBench dev split · AgentBench',
+        href: 'https://github.com/THUDM/AgentBench/blob/main/data/dbbench/dev.jsonl',
+      },
+    ],
+  },
   {
     name: 'llm-serving-lab',
     href: 'https://github.com/yashtotla/llm-serving-lab',
