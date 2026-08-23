@@ -9,10 +9,10 @@ import {
   zoom,
   zoomIdentity,
 } from 'd3-zoom'
-import { ChevronLeft, ChevronRight, Home, Minus, Plus, RotateCcw, X } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Home, MapPin, Minus, Plus, RotateCcw, X } from 'lucide-react'
 import worldData from 'world-atlas/countries-110m.json'
 
-import { destinations, home, trips, type LonLat } from '@/data/travel'
+import { current, destinations, home, trips, type LonLat } from '@/data/travel'
 import { cn } from '@/lib/utils'
 
 const WIDTH = 800
@@ -30,8 +30,13 @@ const projection = geoEqualEarth().fitSize([WIDTH, HEIGHT], {
 const pathGen = geoPath(projection)
 
 const homeXY = projection(home.coordinates)
+const currentXY = projection(current.coordinates)
 
-const focusPoints = [home.coordinates, ...destinations.map((d) => d.coordinates)]
+const focusPoints = [
+  home.coordinates,
+  current.coordinates,
+  ...destinations.map((d) => d.coordinates),
+]
   .map((c) => projection(c))
   .filter((p): p is [number, number] => p != null)
 
@@ -176,6 +181,11 @@ export function Travel() {
                   vectorEffect="non-scaling-stroke"
                 />
               ))}
+              <path
+                d={arcPath(home.coordinates, current.coordinates)}
+                strokeDasharray="4 3"
+                vectorEffect="non-scaling-stroke"
+              />
             </g>
           </g>
         </svg>
@@ -184,8 +194,25 @@ export function Travel() {
           <div
             className="bg-foreground text-background pointer-events-none absolute flex size-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full shadow"
             style={styleFor(homeXY)}
+            title={`Home — ${home.name}`}
           >
             <Home className="size-4" />
+          </div>
+        ) : null}
+
+        {currentXY ? (
+          <div
+            className="pointer-events-none absolute size-9 -translate-x-1/2 -translate-y-1/2"
+            style={styleFor(currentXY)}
+            title={`Currently in ${current.name} — ${current.detail}`}
+          >
+            <span
+              aria-hidden="true"
+              className="bg-foreground/25 absolute inset-0 animate-ping rounded-full"
+            />
+            <div className="bg-foreground text-background relative flex size-9 items-center justify-center rounded-full shadow">
+              <MapPin className="size-4" />
+            </div>
           </div>
         ) : null}
 
